@@ -1,10 +1,11 @@
+ 
 execute block
-returns (table_name varchar(100),column_name varchar(100), column_value varchar(1000))
+returns (table_name varchar(100),column_name varchar(100), column_value varchar(8000))
 as
  declare variable search_for varchar(100);
 
 begin
- search_for = '%123%' ;
+ search_for = '%sinialo%' ;
 
 for
 select rf.rdb$relation_name as relation_name,
@@ -12,18 +13,21 @@ select rf.rdb$relation_name as relation_name,
 from RDB$RELATION_FIELDS rf
 
 where 
+
     rf.rdb$system_flag=0 and 
     rf.rdb$relation_name not in
     (select rdb$relation_name from rdb$relations
     where rdb$view_blr is not null
     and (rdb$system_flag is null or rdb$system_flag = 0))
 
-
     into :table_name, :column_name do
+
   begin
-    execute statement 'select first 1 cast("' || column_name || '" as varchar(5000)) from "' || table_name || '" where cast("' || column_name || '" as varchar(5000)) like (''' || search_for || ''')' into :column_value;
+
+    :column_value= null;
+    execute statement   'select first 1 cast("' || column_name || '" as varchar(8000)) from "' || table_name || '"
+                        where cast("' || column_name || '" as varchar(8000)) like (''' || search_for || ''')' into :column_value;
     suspend;
   end
 end
-
  
