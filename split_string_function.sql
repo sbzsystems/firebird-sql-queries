@@ -1,3 +1,15 @@
+
+/* 
+Function: SPLIT_STRING
+Description: Retrieves a specific field from delimited text.
+Parameters:
+  - AINPUT: Input string to be split (varchar(1000))
+  - DELIMITER: Delimiter used to split the input string (varchar(10))
+  - NUM: The part number to return (integer)
+Returns: The NUM-th part of the split string (varchar(1000))
+*/
+
+
 CREATE OR ALTER function SPLIT_STRING (
     AINPUT varchar(1000),
     DELIMITER varchar(10),
