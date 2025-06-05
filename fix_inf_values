@@ -1,11 +1,13 @@
-*/
-select
-  cast("grammes"."Ekptvsh" as varchar(50)) 
-from "grammes"
-where not substring(cast("grammes"."Ekptvsh" as varchar(50)) from 1 for 10) SIMILAR TO '[-]?[0-9]+([.,][0-9]+)?'
-*/
+-- Remark: This script fixes 'inf' problems in all double precision fields in the "grammes" table by setting invalid values to 0.
+-- Example for "Ekptvsh"
+-- Remark: Before running the update, check for invalid double precision values using the SELECT statement below.
+-- select
+--   cast("grammes"."Ekptvsh" as varchar(50)) 
+-- from "grammes"
+-- where not substring(cast("grammes"."Ekptvsh" as varchar(50)) from 1 for 10) SIMILAR TO '[-]?[0-9]+([.,][0-9]+)?'
+
 
 update "grammes"
 set "Ekptvsh" = 0
 where not substring(cast("grammes"."Ekptvsh" as varchar(50)) from 1 for 10) SIMILAR TO '[-]?[0-9]+([.,][0-9]+)?';
-
+ 
