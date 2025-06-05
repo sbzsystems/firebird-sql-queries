@@ -1,0 +1,11 @@
+*/
+select
+  cast("grammes"."Ekptvsh" as varchar(50)) 
+from "grammes"
+where not substring(cast("grammes"."Ekptvsh" as varchar(50)) from 1 for 10) SIMILAR TO '[-]?[0-9]+([.,][0-9]+)?'
+*/
+
+update "grammes"
+set "Ekptvsh" = 0
+where not substring(cast("grammes"."Ekptvsh" as varchar(50)) from 1 for 10) SIMILAR TO '[-]?[0-9]+([.,][0-9]+)?';
+
